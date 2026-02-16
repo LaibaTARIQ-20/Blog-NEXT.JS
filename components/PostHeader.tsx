@@ -30,14 +30,18 @@ export default function PostHeader({
     <div>
       {/* User Info */}
       <div className="flex items-center space-x-1">
-        <p className="font-bold hover:underline cursor-pointer">{name}</p>
-        <p className="text-gray-500">@{username}</p>
-        <span className="text-gray-500">·</span>
-        <p className="text-gray-500 text-sm">{getTimeAgo()}</p>
+        <p className="font-bold hover:underline cursor-pointer dark:text-white">
+          {name}
+        </p>
+        <p className="text-gray-500 dark:text-gray-400">@{username}</p>
+        <span className="text-gray-500 dark:text-gray-400">·</span>
+        <p className="text-gray-500 dark:text-gray-400 text-sm">
+          {getTimeAgo()}
+        </p>
       </div>
 
       {/* Post Text */}
-      <p className="mt-2 text-[#0F1419]">{text}</p>
+      <p className="mt-2 text-[#0F1419] dark:text-white">{text}</p>
     </div>
   );
 }

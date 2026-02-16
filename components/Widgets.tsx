@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import SearchBar from "./SearchBar";
 
 const trendingTopics = [
   { category: "Technology", topic: "AI Development", posts: "125K" },
@@ -20,47 +20,48 @@ export default function Widgets() {
   return (
     <div className="hidden xl:flex flex-col w-[350px] px-4 py-3 space-y-4">
       {/* Search Bar */}
-      <div className="sticky top-0 bg-white pt-2 z-40">
-        <div className="flex items-center bg-[#EFF3F4] rounded-full p-3 space-x-3">
-          <MagnifyingGlassIcon className="w-5 h-5 text-gray-500" />
-          <input
-            type="text"
-            placeholder="Search Busy B"
-            className="bg-transparent outline-none flex-grow text-[#0F1419] placeholder-gray-500"
-          />
-        </div>
+      <div className="sticky top-0 bg-white dark:bg-[#15202B] pt-2 z-40">
+        <SearchBar />
       </div>
 
       {/* What's Happening */}
-      <div className="bg-[#F7F9F9] rounded-2xl overflow-hidden">
-        <h2 className="text-xl font-bold text-[#0F1419] p-4">
+      <div className="bg-[#F7F9F9] dark:bg-[#192734] rounded-2xl overflow-hidden">
+        <h2 className="text-xl font-bold text-[#0F1419] dark:text-white p-4">
           What's happening
         </h2>
 
         {trendingTopics.map((trend, index) => (
           <div
             key={index}
-            className="px-4 py-3 hover:bg-gray-200 cursor-pointer transition-colors"
+            className="px-4 py-3 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors"
           >
-            <p className="text-xs text-gray-500">{trend.category} · Trending</p>
-            <p className="font-bold text-[#0F1419] mt-0.5">{trend.topic}</p>
-            <p className="text-xs text-gray-500 mt-0.5">{trend.posts} posts</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              {trend.category} · Trending
+            </p>
+            <p className="font-bold text-[#0F1419] dark:text-white mt-0.5">
+              {trend.topic}
+            </p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+              {trend.posts} posts
+            </p>
           </div>
         ))}
 
-        <button className="text-[#FF4B2B] hover:bg-gray-200 px-4 py-3 w-full text-left transition-colors">
+        <button className="text-[#FF4B2B] hover:bg-gray-200 dark:hover:bg-gray-700 px-4 py-3 w-full text-left transition-colors">
           Show more
         </button>
       </div>
 
       {/* Who to Follow */}
-      <div className="bg-[#F7F9F9] rounded-2xl overflow-hidden">
-        <h2 className="text-xl font-bold text-[#0F1419] p-4">Who to follow</h2>
+      <div className="bg-[#F7F9F9] dark:bg-[#192734] rounded-2xl overflow-hidden">
+        <h2 className="text-xl font-bold text-[#0F1419] dark:text-white p-4">
+          Who to follow
+        </h2>
 
         {whoToFollow.map((profile, index) => (
           <div
             key={index}
-            className="flex items-center justify-between px-4 py-3 hover:bg-gray-200 cursor-pointer transition-colors"
+            className="flex items-center justify-between px-4 py-3 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors"
           >
             <div className="flex items-center space-x-3">
               <div className="w-12 h-12 bg-gradient-to-r from-[#FF4B2B] to-[#FF416C] rounded-full flex items-center justify-center text-white font-bold">
@@ -68,7 +69,9 @@ export default function Widgets() {
               </div>
               <div>
                 <div className="flex items-center space-x-1">
-                  <p className="font-bold text-[#0F1419]">{profile.name}</p>
+                  <p className="font-bold text-[#0F1419] dark:text-white">
+                    {profile.name}
+                  </p>
                   {profile.verified && (
                     <svg
                       className="w-4 h-4 text-blue-500"
@@ -79,16 +82,18 @@ export default function Widgets() {
                     </svg>
                   )}
                 </div>
-                <p className="text-sm text-gray-500">@{profile.username}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  @{profile.username}
+                </p>
               </div>
             </div>
-            <button className="bg-[#0F1419] text-white px-4 py-1.5 rounded-full font-bold text-sm hover:bg-gray-800 transition-colors">
+            <button className="bg-[#0F1419] dark:bg-white text-white dark:text-black px-4 py-1.5 rounded-full font-bold text-sm hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors">
               Follow
             </button>
           </div>
         ))}
 
-        <button className="text-[#FF4B2B] hover:bg-gray-200 px-4 py-3 w-full text-left transition-colors">
+        <button className="text-[#FF4B2B] hover:bg-gray-200 dark:hover:bg-gray-700 px-4 py-3 w-full text-left transition-colors">
           Show more
         </button>
       </div>

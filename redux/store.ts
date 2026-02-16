@@ -4,7 +4,7 @@ import userSlice from './slices/userSlice';
 import loadingSlice from './slices/loadingSlice';
 import postsSlice from './slices/postsSlice';
 import notificationsSlice from './slices/notificationsSlice';
-import uiSlice from './slices/uiSlice';
+import themeSlice from './slices/themeSlice';
 import searchSlice from './slices/searchSlice';
 
 export const store = configureStore({
@@ -14,7 +14,7 @@ export const store = configureStore({
     loading: loadingSlice,
     posts: postsSlice,
     notifications: notificationsSlice,
-    ui: uiSlice,
+    theme: themeSlice,
     search: searchSlice,
   },
   middleware: (getDefaultMiddleware) =>

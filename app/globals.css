@@ -1,2 +1,20 @@
 @import "tailwindcss";
 
+/* Light mode (default) */
+:root {
+  --background: 255 255 255;
+  --foreground: 15 20 25;
+}
+
+/* Dark mode */
+.dark {
+  --background: 21 32 43;
+  --foreground: 255 255 255;
+}
+
+body {
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
+}
+
+/* Remove the extra dark selectors that are causing issues */

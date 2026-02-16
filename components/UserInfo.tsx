@@ -28,7 +28,7 @@ export default function UserInfo() {
     >
       <div className="flex items-center space-x-3">
         <Image
-          src={user.photoUrl || "/assets/profile-pic.png"}
+          src={user.photoUrl || "public/profile.jfif"}
           alt="User"
           width={40}
           height={40}

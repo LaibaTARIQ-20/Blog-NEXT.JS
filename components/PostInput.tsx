@@ -17,6 +17,7 @@ import {
 import { FaceSmileIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 
 interface PostInputProps {
   insideModal?: boolean;
@@ -25,12 +26,18 @@ interface PostInputProps {
 export default function PostInput({ insideModal = false }: PostInputProps) {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
   const user = useSelector((state: RootState) => state.user);
   const commentDetails = useSelector(
     (state: RootState) => state.modals.commentDetails,
   );
   const dispatch = useDispatch();
   const router = useRouter();
+
+  function onEmojiClick(emojiData: EmojiClickData) {
+    setText((prevText) => prevText + emojiData.emoji);
+  }
 
   async function sendPost() {
     if (!text.trim()) return;
@@ -67,6 +74,7 @@ export default function PostInput({ insideModal = false }: PostInputProps) {
         });
         setText("");
       }
+      setShowEmojiPicker(false);
     } catch (error: any) {
       console.error("Error posting:", error);
       alert("Failed to post. Please try again.");
@@ -76,9 +84,9 @@ export default function PostInput({ insideModal = false }: PostInputProps) {
   }
 
   return (
-    <div className="flex space-x-3 px-4 py-3 border-b border-gray-200">
+    <div className="flex space-x-3 px-4 py-3 border-b border-gray-200 dark:border-gray-700 relative">
       <Image
-        src={user.photoUrl || "/assets/profile-pic.png"}
+        src={user.photoUrl || "/public/profile.jfif"}
         width={48}
         height={48}
         alt="User"
@@ -90,14 +98,26 @@ export default function PostInput({ insideModal = false }: PostInputProps) {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder={insideModal ? "Post your reply" : "What's happening?"}
-          className="w-full text-lg outline-none resize-none bg-transparent placeholder:text-gray-500 min-h-[50px]"
+          className="w-full text-lg outline-none resize-none bg-transparent placeholder:text-gray-500 dark:text-white dark:placeholder:text-gray-400 min-h-[50px]"
           rows={insideModal ? 2 : 3}
         />
 
         <div className="flex items-center justify-between mt-3">
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 relative">
             <PhotoIcon className="w-5 h-5 text-[#FF4B2B] cursor-pointer hover:bg-red-50 rounded-full p-0.5" />
-            <FaceSmileIcon className="w-5 h-5 text-[#FF4B2B] cursor-pointer hover:bg-red-50 rounded-full p-0.5" />
+
+            <div className="relative">
+              <FaceSmileIcon
+                className="w-5 h-5 text-[#FF4B2B] cursor-pointer hover:bg-red-50 rounded-full p-0.5"
+                onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+              />
+
+              {showEmojiPicker && (
+                <div className="absolute top-8 left-0 z-50">
+                  <EmojiPicker onEmojiClick={onEmojiClick} />
+                </div>
+              )}
+            </div>
           </div>
 
           <button
@@ -109,6 +129,14 @@ export default function PostInput({ insideModal = false }: PostInputProps) {
           </button>
         </div>
       </div>
+
+      {/* Click outside to close emoji picker */}
+      {showEmojiPicker && (
+        <div
+          className="fixed inset-0 z-40"
+          onClick={() => setShowEmojiPicker(false)}
+        />
+      )}
     </div>
   );
 }
