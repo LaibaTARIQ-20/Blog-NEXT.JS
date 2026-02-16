@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Post {
+export interface Post {
   id: string;
   name: string;
   username: string;

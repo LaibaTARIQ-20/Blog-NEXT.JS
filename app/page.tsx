@@ -7,7 +7,7 @@ import CommentModal from "@/components/modals/CommentModal";
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-[1400px] mx-auto flex">
+      <div className="max-w-350 mx-auto flex">
         <Sidebar />
         <PostFeed />
         <Widgets />

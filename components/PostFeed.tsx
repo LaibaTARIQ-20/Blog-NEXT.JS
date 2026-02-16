@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
-import { setPosts, setPostsLoading } from "@/redux/slices/postsSlice";
+import { setPosts, type Post as PostType } from "@/redux/slices/postsSlice";
 import { db } from "@/firebase";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import Post from "./Post";
@@ -21,10 +22,18 @@ export default function PostFeed() {
     );
 
     const unsubscribe = onSnapshot(postsQuery, (snapshot) => {
-      const postsData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      const postsData: PostType[] = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          name: data.name || "",
+          username: data.username || "",
+          text: data.text || "",
+          timestamp: data.timestamp,
+          likes: data.likes || [],
+          comments: data.comments || [],
+        };
+      });
 
       dispatch(setPosts(postsData));
     });
